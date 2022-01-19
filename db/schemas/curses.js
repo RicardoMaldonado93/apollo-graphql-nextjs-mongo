@@ -9,8 +9,13 @@ const typeCurses = gql`
     tech: String
   }
 
+  input CurseInput {
+    tech: String
+  }
+
   type Query {
     getCurses: [Curse]
+    getCurse(input:CurseInput!): [Curse]
     getTechs: [Techs]
   }
 `;

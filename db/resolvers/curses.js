@@ -21,6 +21,7 @@ const curseResolvers = {
   Query: {
     getCurses: () => curses,
     getTechs: () => curses,
+    getCurse: (_,{input:{tech}}) => ( curses.filter( curse => curse.tech === tech ) )
   },
 };
 
