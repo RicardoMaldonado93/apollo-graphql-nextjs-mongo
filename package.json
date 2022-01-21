@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start:local": "export NODE_ENV=local && node .",
+    "start:local": "export NODE_ENV=local && nodemon .",
     "start": "export NODE_ENV=dev && node .",
     "dev": "nodemon ."
   },

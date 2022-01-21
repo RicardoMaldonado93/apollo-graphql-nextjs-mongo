@@ -1,12 +1,16 @@
 const { ApolloServer } = require("apollo-server");
-const typeDefs = require("./db/schemas/curses");
-const resolvers = require("./db/resolvers/curses");
+const typeDefs = require("./db/schemas/users");
+const resolvers = require("./db/resolvers/users");
+const connectToDB = require('./config/db');
 
-//? server
+// connect to db
+connectToDB();
+
+// server
 const server = new ApolloServer({
   typeDefs,
   resolvers,
 });
 
-//? run server
+// run server
 server.listen().then(({ url }) => console.log(`server run in ${url}`));
