@@ -27,6 +27,7 @@ const typeUsers = gql`
 
   type Query {
     getUsers: [User]
+    getUser(token:String!): User
   }
 
   type Mutation {

@@ -1,15 +1,14 @@
 const { ApolloServer } = require("apollo-server");
-const typeDefs = require("./db/schemas/users");
-const resolvers = require("./db/resolvers/users");
-const connectToDB = require('./config/db');
+const { productsResolvers, usersResolvers, usersTypeDefs } = require("./db");
+const connectToDB = require("./config/db");
 
 // connect to db
 connectToDB();
 
 // server
 const server = new ApolloServer({
-  typeDefs,
-  resolvers,
+  typeDefs: [usersTypeDefs],
+  resolvers: [productsResolvers, usersResolvers],
 });
 
 // run server

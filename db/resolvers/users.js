@@ -1,4 +1,4 @@
-const User = require("../models/user");
+const User = require("../models/users");
 const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
@@ -10,6 +10,9 @@ const createToken = (user, secret, expiresIn) => {
 const userResolvers = {
   Query: {
     getUsers: () => "some user",
+    getUser: async (_, { token }) => {
+      return jwt.verify(token, process.env.SECRET_TOKEN);
+    },
   },
   Mutation: {
     newUser: async (_, { input }) => {
@@ -48,7 +51,7 @@ const userResolvers = {
 
       if (!isCorrectPassword) throw new Error("Invalid crendentials");
 
-      const { SECRET_TOKEN, EXPIRATION_TOKEN } = process.env
+      const { SECRET_TOKEN, EXPIRATION_TOKEN } = process.env;
       return {
         token: createToken(isUserExist, SECRET_TOKEN, EXPIRATION_TOKEN),
       };
