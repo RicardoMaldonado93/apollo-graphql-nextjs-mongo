@@ -1,5 +1,11 @@
 const User = require("../models/user");
 const bcryptjs = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+
+const createToken = (user, secret, expiresIn) => {
+  const { id } = user;
+  return jwt.sign({ id }, secret, { expiresIn });
+};
 
 const userResolvers = {
   Query: {
@@ -24,6 +30,28 @@ const userResolvers = {
         newUser.save();
         return newUser;
       } catch (error) {}
+    },
+
+    authUser: async (_, { input }) => {
+      const { email, password } = input;
+
+      // check if the user exist
+      const isUserExist = await User.findOne({ email });
+
+      if (!isUserExist) throw new Error("Invalid credentials");
+
+      // check if the correct password
+      const isCorrectPassword = await bcryptjs.compare(
+        password,
+        isUserExist.password
+      );
+
+      if (!isCorrectPassword) throw new Error("Invalid crendentials");
+
+      const { SECRET_TOKEN, EXPIRATION_TOKEN } = process.env
+      return {
+        token: createToken(isUserExist, SECRET_TOKEN, EXPIRATION_TOKEN),
+      };
     },
   },
 };

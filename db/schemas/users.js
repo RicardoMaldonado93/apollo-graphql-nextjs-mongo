@@ -9,9 +9,18 @@ const typeUsers = gql`
     createAt: String
   }
 
+  type Token{
+    token: String
+  }
+
   input UserInput {
     name: String!
     lastname: String!
+    email: String!
+    password: String!
+  }
+
+  input AuthInput{
     email: String!
     password: String!
   }
@@ -22,6 +31,7 @@ const typeUsers = gql`
 
   type Mutation {
     newUser(input: UserInput): User
+    authUser(input: AuthInput): Token
   }
 `;
 
