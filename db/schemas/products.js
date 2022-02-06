@@ -9,15 +9,21 @@ const typeProducts = gql`
     createAt: String
   }
 
-  input ProductInput{
+  input ProductInput {
     name: String!
     stock: Int!
     price: Float!
-    createAt:String
+    createAt: String
   }
 
   type Mutation {
-    newProduct(input: ProductInput) : Product
+    newProduct(input: ProductInput): Product
+    updateProduct(id: ID!, input: ProductInput): Product
+  }
+
+  type Query {
+    getProducts: [Product]
+    getProduct(id: ID!): Product
   }
 `;
 
