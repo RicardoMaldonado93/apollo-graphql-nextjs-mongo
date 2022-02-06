@@ -1,21 +1,20 @@
-const products = require("../models/products");
 const Product = require("../models/products");
+
+const findIfProductExists = async (id) => {
+  const product = await Product.findById(id);
+
+  if (!product) throw new Error("Product not exist!");
+
+  return product;
+};
 
 const ProductResolver = {
   Query: {
     getProducts: async () => {
-      try {
-        return Product.find({});
-      } catch (error) {
-        console.error(error);
-      }
+      return Product.find({});
     },
     getProduct: async (_, { id }) => {
-      const existProduct = await Product.findById(id);
-
-      if (!existProduct) throw new Error("Product not exist!");
-
-      return existProduct;
+      return findIfProductExists(id);
     },
   },
   Mutation: {
@@ -29,11 +28,18 @@ const ProductResolver = {
       }
     },
     updateProduct: async (_, { id, input }) => {
-      const existProduct = await Product.findById(id);
+      return (
+        (await findIfProductExists(id)) &&
+        Product.findByIdAndUpdate({ _id: id }, input, { new: true })
+      );
+    },
 
-      if (!existProduct) throw new Error("Product not exist!");
-
-      return Product.findByIdAndUpdate({ _id: id }, input, { new: true });
+    removeProduct: async (_, { id }) => {
+      return (
+        (await findIfProductExists(id)) &&
+        (await Product.findByIdAndDelete(id)) &&
+        "Product has been deleted!"
+      );
     },
   },
 };

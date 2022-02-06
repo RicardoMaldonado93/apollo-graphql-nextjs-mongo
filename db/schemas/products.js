@@ -19,6 +19,7 @@ const typeProducts = gql`
   type Mutation {
     newProduct(input: ProductInput): Product
     updateProduct(id: ID!, input: ProductInput): Product
+    removeProduct(id: ID!): String
   }
 
   type Query {
