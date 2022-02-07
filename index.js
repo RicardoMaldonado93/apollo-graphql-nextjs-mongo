@@ -1,19 +1,23 @@
 const { ApolloServer } = require("apollo-server");
-const {
-  productsResolvers,
-  usersResolvers,
-  usersTypeDefs,
-  productsTypeDefs,
-} = require("./db");
+const { resolvers, typeDefs } = require("./db");
 const connectToDB = require("./config/db");
-
+const jwt = require("jsonwebtoken");
 // connect to db
 connectToDB();
 
 // server
 const server = new ApolloServer({
-  typeDefs: [productsTypeDefs, usersTypeDefs],
-  resolvers: [productsResolvers, usersResolvers],
+  typeDefs,
+  resolvers,
+  context: ({ req }) => {
+      const token = req.headers.authorization || null;
+
+      if (token) {
+        const user = jwt.verify(token, process.env.SECRET_TOKEN);
+        return { user };
+      }
+      
+  },
 });
 
 // run server
