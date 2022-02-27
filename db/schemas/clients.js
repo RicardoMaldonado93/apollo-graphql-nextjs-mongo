@@ -24,7 +24,8 @@ const typeClients = gql`
   }
 
   type Query {
-    getClients: [Client]
+    getClients: [Client],
+    getClient(id: String): Client
   }
 `;
 

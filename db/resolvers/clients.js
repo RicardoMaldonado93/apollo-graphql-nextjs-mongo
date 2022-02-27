@@ -5,6 +5,13 @@ const ClientResolver = {
     getClients: async () => {
       return Client.find({});
     },
+    getClient: async (_, { id }) => {
+      const clientExist = Client.findOne({ id });
+
+      if (!clientExist) throw new Error("The Client not exist");
+
+      return clientExist;
+    },
   },
   Mutation: {
     newClient: async (_, { input }, ctx) => {
@@ -13,16 +20,14 @@ const ClientResolver = {
 
       if (clientExist) throw new Error("The Client already exist!");
 
-      try{
-          const newClient = new Client(input);
-          newClient.seller = ctx.user.id;
+      try {
+        const newClient = new Client(input);
+        newClient.seller = ctx.user.id;
 
-          return newClient.save();
+        return newClient.save();
+      } catch {
+        console.error("Error!");
       }
-      catch{
-          console.error("Error!")
-      }
-
     },
   },
 };
