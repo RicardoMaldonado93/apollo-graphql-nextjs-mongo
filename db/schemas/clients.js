@@ -22,6 +22,7 @@ const typeClients = gql`
   type Mutation {
     newClient(input: ClientInput): Client,
     updateClient(id:String!, input: ClientInput!): Client
+    removeClient(id:String!): String
   }
 
   type Query {

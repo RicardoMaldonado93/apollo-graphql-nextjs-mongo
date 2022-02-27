@@ -53,7 +53,28 @@ const ClientResolver = {
         );
 
       // save the changes
-      return Client.findByIdAndUpdate({ _id:client._id }, input, { new: true });
+      return Client.findByIdAndUpdate({ _id: client._id }, input, {
+        new: true,
+      });
+    },
+
+    removeClient: async (_, { id }, ctx) => {
+      
+        const client = await Client.findOne({ id });
+        if (!client) throw new Error("The client not exist");
+
+      // verify if the use have valid credentials to edit
+      if (ctx.user.id !== client.seller.toString())
+        throw new Error(
+          "You've invalid credentials to continue with the operation"
+        );
+
+      
+
+      await Client.findByIdAndDelete({ _id: client._id });
+
+              return "the client has been removed"
+     
     },
   },
 };
