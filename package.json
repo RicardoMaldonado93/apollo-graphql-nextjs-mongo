@@ -7,7 +7,8 @@
     "start:local": "export NODE_ENV=local && nodemon .",
     "start": "export NODE_ENV=dev && node .",
     "dev": "nodemon .",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "prettier": "prettier --write ."
   },
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"

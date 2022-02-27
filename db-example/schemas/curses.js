@@ -1,4 +1,4 @@
-const { gql } = require("apollo-server");
+const { gql } = require('apollo-server')
 
 const typeCurses = gql`
   type Curse {
@@ -15,10 +15,9 @@ const typeCurses = gql`
 
   type Query {
     getCurses: [Curse]
-    getCurse(input:CurseInput!): [Curse]
+    getCurse(input: CurseInput!): [Curse]
     getTechs: [Techs]
   }
-`;
+`
 
-
-module.exports = typeCurses;
+module.exports = typeCurses

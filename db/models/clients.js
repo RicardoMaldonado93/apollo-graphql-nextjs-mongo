@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose')
 
 const clientsSchema = mongoose.Schema({
   name: {
@@ -25,15 +25,15 @@ const clientsSchema = mongoose.Schema({
     required: true,
     trim: true,
   },
-  seller:{
+  seller: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
-    ref: 'Users'
+    ref: 'Users',
   },
   createAt: {
     type: Date,
     default: Date.now(),
   },
-});
+})
 
-module.exports = mongoose.model("Clients", clientsSchema);
+module.exports = mongoose.model('Clients', clientsSchema)

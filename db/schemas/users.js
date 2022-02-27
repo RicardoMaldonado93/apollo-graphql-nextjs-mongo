@@ -1,4 +1,4 @@
-const { gql } = require("apollo-server");
+const { gql } = require('apollo-server')
 
 const typeUsers = gql`
   type User {
@@ -9,7 +9,7 @@ const typeUsers = gql`
     createAt: String
   }
 
-  type Token{
+  type Token {
     token: String
   }
 
@@ -20,20 +20,20 @@ const typeUsers = gql`
     password: String!
   }
 
-  input AuthInput{
+  input AuthInput {
     email: String!
     password: String!
   }
 
   type Query {
     getUsers: [User]
-    getUser(token:String!): User
+    getUser(token: String!): User
   }
 
   type Mutation {
     newUser(input: UserInput): User
     authUser(input: AuthInput): Token
   }
-`;
+`
 
-module.exports = typeUsers;
+module.exports = typeUsers

@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose')
 
 const usersSchema = mongoose.Schema({
   name: {
@@ -26,6 +26,6 @@ const usersSchema = mongoose.Schema({
     type: Date,
     default: Date.now(),
   },
-});
+})
 
-module.exports = mongoose.model("Users", usersSchema);
+module.exports = mongoose.model('Users', usersSchema)

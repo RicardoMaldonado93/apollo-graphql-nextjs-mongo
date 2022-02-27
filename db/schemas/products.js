@@ -1,4 +1,4 @@
-const { gql } = require("apollo-server");
+const { gql } = require('apollo-server')
 
 const typeProducts = gql`
   type Product {
@@ -26,6 +26,6 @@ const typeProducts = gql`
     getProducts: [Product]
     getProduct(id: ID!): Product
   }
-`;
+`
 
-module.exports = typeProducts;
+module.exports = typeProducts

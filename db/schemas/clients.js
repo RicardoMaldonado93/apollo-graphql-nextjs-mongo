@@ -1,4 +1,4 @@
-const { gql } = require("apollo-server");
+const { gql } = require('apollo-server')
 
 const typeClients = gql`
   type Client {
@@ -20,16 +20,16 @@ const typeClients = gql`
   }
 
   type Mutation {
-    newClient(input: ClientInput): Client,
-    updateClient(id:String!, input: ClientInput!): Client
-    removeClient(id:String!): String
+    newClient(input: ClientInput): Client
+    updateClient(id: String!, input: ClientInput!): Client
+    removeClient(id: String!): String
   }
 
   type Query {
-    getClients: [Client],
-    getClient(id: String!): Client,
+    getClients: [Client]
+    getClient(id: String!): Client
     getClientsBySeller: [Client]
   }
-`;
+`
 
-module.exports = typeClients;
+module.exports = typeClients
