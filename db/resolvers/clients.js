@@ -5,12 +5,15 @@ const ClientResolver = {
     getClients: async () => {
       return Client.find({});
     },
-    getClient: async (_, { id }) => {
-      const clientExist = Client.findOne({ id });
+    getClient: async (_, { id }, ctx) => {
+      const client = await Client.findOne({ id });
 
-      if (!clientExist) throw new Error("The Client not exist");
+      if (!client) throw new Error("The Client not exist");
 
-      return clientExist;
+      if (client.seller.toString() !== ctx.user.id)
+        throw new Error("You've invalid credentials to continue");
+
+      return client;
     },
     getClientsBySeller: async (_, {}, ctx) => {
       try {
@@ -35,6 +38,22 @@ const ClientResolver = {
       } catch {
         console.error("Error!");
       }
+    },
+
+    updateClient: async (_, { id, input }, ctx) => {
+      // verify if the client exist
+      const client = await Client.findOne({ id });
+
+      if (!client) throw new Error("The client not exist");
+
+      // verify if the use have valid credentials to edit
+      if (ctx.user.id !== client.seller.toString())
+        throw new Error(
+          "You've invalid credentials to continue with the operation"
+        );
+
+      // save the changes
+      return Client.findByIdAndUpdate({ _id:client._id }, input, { new: true });
     },
   },
 };

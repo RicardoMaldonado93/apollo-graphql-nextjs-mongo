@@ -20,12 +20,13 @@ const typeClients = gql`
   }
 
   type Mutation {
-    newClient(input: ClientInput): Client
+    newClient(input: ClientInput): Client,
+    updateClient(id:String!, input: ClientInput!): Client
   }
 
   type Query {
     getClients: [Client],
-    getClient(id: String): Client,
+    getClient(id: String!): Client,
     getClientsBySeller: [Client]
   }
 `;
