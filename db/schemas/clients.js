@@ -25,7 +25,8 @@ const typeClients = gql`
 
   type Query {
     getClients: [Client],
-    getClient(id: String): Client
+    getClient(id: String): Client,
+    getClientsBySeller: [Client]
   }
 `;
 

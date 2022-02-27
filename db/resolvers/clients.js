@@ -12,6 +12,13 @@ const ClientResolver = {
 
       return clientExist;
     },
+    getClientsBySeller: async (_, {}, ctx) => {
+      try {
+        return Client.find({ seller: ctx.user.id.toString() });
+      } catch (error) {
+        console.error(error);
+      }
+    },
   },
   Mutation: {
     newClient: async (_, { input }, ctx) => {

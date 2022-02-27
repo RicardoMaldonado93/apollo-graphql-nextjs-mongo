@@ -9,10 +9,13 @@ const createToken = (user, secret, expiresIn) => {
 
 const userResolvers = {
   Query: {
-    getUsers: () => "some user",
+    getUsers: async () => {
+      return User.find({});
+    }
+    ,
     getUser: async (_, { token }) => {
       return jwt.verify(token, process.env.SECRET_TOKEN);
-    },
+    }
   },
   Mutation: {
     newUser: async (_, { input }) => {
